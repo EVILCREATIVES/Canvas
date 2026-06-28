@@ -19,7 +19,10 @@ const ADMIN_EMAIL = 'ecadmin';
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+  secret:
+    process.env.NEXTAUTH_SECRET ||
+    process.env.AUTH_SECRET ||
+    'kyJvU0fP/vhHMf2ophLgtaL5l7Q4tB1Jpnk9+Apb6Cw=',
   adapter: DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,

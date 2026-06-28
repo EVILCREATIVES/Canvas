@@ -2,13 +2,12 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
 
-// A dummy connection string keeps `next build` from crashing at import time
-// when DATABASE_URL is not set. It is never actually connected to — a real
-// query only runs once a valid DATABASE_URL is provided at runtime. The scheme
-// is assembled from parts so the placeholder is not flagged as a secret.
-const dummyScheme = ['postgre', 'sql:', '//'].join('');
-const dummyConnectionString = `${dummyScheme}user:pass@localhost:5432/placeholder`;
+// Fallback Neon connection string so the deployed app works even when
+// DATABASE_URL is not configured in the hosting environment. Prefer the
+// env var when present.
+const fallbackConnectionString =
+  'postgresql://neondb_owner:npg_Ozkcad5qfQ3R@ep-quiet-frog-ahossves-pooler.c-3.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require';
 
-const sql = neon(process.env.DATABASE_URL || dummyConnectionString);
+const sql = neon(process.env.DATABASE_URL || fallbackConnectionString);
 export const db = drizzle(sql, { schema });
 export * from './schema';
