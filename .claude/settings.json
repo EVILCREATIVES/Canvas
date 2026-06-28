@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pkill -9 -f \"next-server\")",
+      "Bash(curl -s -o /dev/null -w \"login page: HTTP %{http_code}\\\\n\" http://localhost:3000/login)",
+      "Bash(node -e \"try{require\\('@tailwindcss/oxide-linux-x64-gnu'\\);console.log\\('RESOLVES OK'\\)}catch\\(e\\){console.log\\('FAIL:',e.message\\)}\")",
+      "Bash(node -e \"try{require\\('@tailwindcss/oxide'\\);console.log\\('OXIDE OK'\\)}catch\\(e\\){console.log\\('FAIL:',e.message\\)}\")"
+    ]
+  }
+}
